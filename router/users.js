@@ -15,7 +15,15 @@ router.post('/user', (req, res) => {
   })
 
 router.put('/user/:id', (req, res) => {
-    res.send('Got a PUT request at /user')
+    const id = req.params.id
+    users.filter(user => {
+        if (user.id == id){
+            user.nama = req.body.nama
+            user.email = req.body.email
+            return user
+        }
+    })
+    res.json(users)
   })
 router.delete('/user/:id', (req, res) => {
     res.send('Got a DELETE request at /user')
