@@ -1,7 +1,7 @@
 const express = require('express')
 const router = express.Router()
 
-const users = [
+let users = [
     {id: 1, nama: "Aditya", email: "aditya@gmail.com"},
     {id: 2, nama: "Eka", email: "eka@gmail.com"},
 
@@ -26,7 +26,10 @@ router.put('/user/:id', (req, res) => {
     res.json(users)
   })
 router.delete('/user/:id', (req, res) => {
-    res.send('Got a DELETE request at /user')
+    const id = req.params.id
+    users = users.filter(user => user.id !=id)
+
+    res.json(users)
   })
 
   module.exports = router
