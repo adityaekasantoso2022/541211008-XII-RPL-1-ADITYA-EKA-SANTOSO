@@ -7,11 +7,30 @@ let users = [
 
 ]
 router.get('/users', (req, res) => {
-    res.json(users)
+    if (users.length > 0){
+        res.json({
+            status: true,
+            data: users,
+            method: req.method,
+            url: req.url
+        })
+    }else{
+        res.json({
+            status: false,
+            maessage: "Data masih kosong"
+        })
+    }
   })
 router.post('/user', (req, res) => {
     users.push(req.body)
-    res.json(users)
+    res.json({
+        status: true,
+        data: users,
+        method: req.method,
+        url: req.url,
+        maessage: "Data berhasil ditemukan"
+    })
+    
   })
 
 router.put('/user/:id', (req, res) => {
@@ -23,13 +42,25 @@ router.put('/user/:id', (req, res) => {
             return user
         }
     })
-    res.json(users)
+    res.json({
+        status: true,
+        data: users,
+        method: req.method,
+        url: req.url,
+        maessage: "Data berhasil diubah"
+    })
   })
 router.delete('/user/:id', (req, res) => {
     const id = req.params.id
     users = users.filter(user => user.id !=id)
 
-    res.json(users)
+    res.json({
+        status: true,
+        data: users,
+        method: req.method,
+        url: req.url,
+        maessage: "Data berhasil dihapus"
+    })
   })
 
   module.exports = router
