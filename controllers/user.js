@@ -57,15 +57,17 @@ module.exports = {
         } 
         const id = req.params.id;
         },
-    delate: (req, res) => {
-        const id = req.params.id;
-        users = users.filter(user => user.id != id);
-        res.json({
-            status: true,
-            data: users,
-            method: req.method,
-            url: req.url,
-            message: "Data berhasil dihapus"
-        });
+    delate: async (req, res) => {
+        try {
+            await User.findByIdAndDelete(req.params.id)
+            res.json({
+                status: true,
+                method: req.method,
+                url: req.url,
+                message: "Data berhasil dihapus"
+            });
+        } catch (error) {
+            res.status(400).json({sucess:false})
+        }
     }
 };
